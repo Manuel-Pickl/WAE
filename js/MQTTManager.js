@@ -25,14 +25,14 @@
      */
     connect() {
         // initialize broker connection
-        this.mqtt = new Paho.MQTT.Client(this.host, this.port, "clientId-5D50T7XTPW");
+        this.mqtt = new Paho.MQTT.Client(this.host, this.port, "");
         this.mqtt.onMessageArrived = this.onMessageArrived.bind(this);
 
         var options = {
             timeout: 3,
             onSuccess: this.onConnect.bind(this),
             onFailure: this.onFailure.bind(this),
-            useSSL: false
+            useSSL: true
         };
         this.mqtt.connect(options);
     }

@@ -2,8 +2,10 @@ var playerNumber, enemyNumber;
 var playerColor, enemyColor;
 
 var mqttManager;
-const host = "broker.mqttdashboard.com";
-const port = 8000;
+// const host = "broker.mqttdashboard.com";
+// const port = 8000;
+const host = "test.mosquitto.org";
+const port = 8081;
 
 
 // bind events
