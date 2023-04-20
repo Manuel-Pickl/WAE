@@ -57,6 +57,12 @@
         console.log(`subscribed to topic ${topic}`);
     }
 
+
+    unsubscribe(topic) {
+        this.mqtt.unsubscribe(topic);
+        console.log(`unsubscribed from topic ${topic}`);
+    }
+
     /**
      * Triggers when the broker publishes a message and saves it
      * @param {*} message The published message from the broker
