@@ -1,8 +1,66 @@
-table {
-    width: 300px;
-    height: 300px;
-    
+.lobby {
+    position: absolute;
+    inset: 0;
+}
+
+.lobby-element {
+    position: absolute;
+    inset: 0;
+
+    display: grid;
+    place-content: center;
+
     visibility: hidden;
+}
+
+.login {
+    background-color: #A4DEAD;
+    visibility: visible;
+}
+.lobby {
+    background-color: #FF9C9C;
+}
+.create {
+    background-color: #A1E7FF;
+}
+.loader {
+    border: 8px solid lightgray;
+    border-top: 8px solid cornflowerblue;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.join {
+    background-color: #FFD0A1;
+}
+
+.game-entry {
+    border: solid 2px black;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background-color: white;
+}
+
+
+
+.game {
+    position: absolute;
+    inset: 0;
+    
+    background-color: white;
+    visibility: hidden;
+}
+
+table {
+    width: 150px;
+    height: 150px;
 }
 
 td {

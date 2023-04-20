@@ -9,8 +9,6 @@
     host;
     port;
     mqtt;
-    subTopic;
-    pubTopic;
 
     /**
      * Creates and initializes an MQTTManager with host and port.
@@ -42,7 +40,6 @@
      */
     onConnect() {
         console.log(`Connected to broker at: ${this.host}:${this.port}`);
-        this.subscribe();
     }
     
     /**
@@ -55,9 +52,9 @@
     /**
      * Subscribe to the broker
      */
-    subscribe() {
-        this.mqtt.subscribe(this.subTopic);
-        console.log(`subscribed to topic ${this.subTopic}`);
+    subscribe(topic) {
+        this.mqtt.subscribe(topic);
+        console.log(`subscribed to topic ${topic}`);
     }
 
     /**
@@ -66,18 +63,18 @@
      */
     onMessageArrived(message) {
         console.log(`recieved on topic "${message.destinationName}": "${message.payloadString}"`);
-        onEnemyMove(message.payloadString);
+        handleMessageArrived(message);
     }
 
     /**
      * Publish a message to the broker.
      * @param {string} message The message that gets published to the broker
      */
-    publishMessage(message) {
+    publish(message, topic) {
         let mqttMessage = new Paho.MQTT.Message(message);
-        mqttMessage.destinationName = this.pubTopic;
+        mqttMessage.destinationName = topic;
         this.mqtt.send(mqttMessage);
         
-        console.log(`published on topic "${this.pubTopic}": "${message}"`);
+        console.log(`published on topic "${topic}": "${message}"`);
     }
 }
