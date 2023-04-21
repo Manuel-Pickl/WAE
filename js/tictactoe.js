@@ -1,11 +1,3 @@
-function initializeVariables() {
-    // determine player/enemy number & color
-    enemyNumber = 3 - playerNumber;
-    playerColor = playerNumber == 1 ? "blue" : "red";
-    enemyColor = playerNumber == 1 ? "red" : "blue";
-}
-
-
 document.querySelectorAll("td").forEach(td => {
     td.onclick = () => onPlayerMove(td.id);
 });
@@ -13,13 +5,13 @@ document.querySelectorAll("td").forEach(td => {
 
 function onPlayerMove(tileNumber) {
     // publish move
-    mqttManager.publishMessage(tileNumber);
+    mqttWrapper.publish(tileNumber, connectionManager.playerTopic);
 
     // color tile
-    document.getElementById(tileNumber).style.background = playerColor;
+    document.getElementById(tileNumber).style.background = "blue";
 }
 
 function onEnemyMove(tileNumber) {
     // color tile
-    document.getElementById(tileNumber).style.background = enemyColor;
+    document.getElementById(tileNumber).style.background = "green";
 }

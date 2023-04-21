@@ -1,17 +1,18 @@
 /**
  * Handles the MQTT logic like connection and subscription
  */
- class MQTTManager {
+class MQTTWrapper {
     /*
         source: https://www.eclipse.org/paho/index.php?page=clients/js/index.php
-        test broker: http://www.hivemq.com/demos/websocket-client/;
+        public test broker: test.mosquitto.org; port defines connection
     */
     host;
     port;
     mqtt;
+    debug = false;
 
     /**
-     * Creates and initializes an MQTTManager with host and port.
+     * Creates and initializes an MQTTWrapper with host and port.
      */
     constructor(host, port) {
         this.host = host;
@@ -39,14 +40,14 @@
      * Triggers a console log on connection success to the broker & subscribes to the broker at the given topic
      */
     onConnect() {
-        console.log(`Connected to broker at: ${this.host}:${this.port}`);
+        if (this.debug) console.log(`Connected to broker at: ${this.host}:${this.port}`);
     }
     
     /**
      * Triggers a console log on connection failure to the broker
      */
     onFailure() {
-        console.log(`No broker at: ${this.host}:${this.port}`);
+        if (this.debug) console.log(`No broker at: ${this.host}:${this.port}`);
     }
     
     /**
@@ -54,13 +55,13 @@
      */
     subscribe(topic) {
         this.mqtt.subscribe(topic);
-        console.log(`subscribed to topic ${topic}`);
+        if (this.debug) console.log(`subscribed to topic ${topic}`);
     }
 
 
     unsubscribe(topic) {
         this.mqtt.unsubscribe(topic);
-        console.log(`unsubscribed from topic ${topic}`);
+        if (this.debug) console.log(`unsubscribed from topic ${topic}`);
     }
 
     /**
@@ -68,8 +69,8 @@
      * @param {*} message The published message from the broker
      */
     onMessageArrived(message) {
-        console.log(`recieved on topic "${message.destinationName}": "${message.payloadString}"`);
-        handleMessageArrived(message);
+        if (this.debug) console.log(`recieved on topic "${message.destinationName}": "${message.payloadString}"`);
+        this.onMessage(message);
     }
 
     /**
@@ -81,6 +82,6 @@
         mqttMessage.destinationName = topic;
         this.mqtt.send(mqttMessage);
         
-        console.log(`published on topic "${topic}": "${message}"`);
+        if (this.debug) console.log(`published on topic "${topic}": "${message}"`);
     }
 }
